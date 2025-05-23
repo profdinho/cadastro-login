@@ -1,0 +1,31 @@
+# Diretórios de build do NetBeans
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+/nbactions.xml
+/nb-configuration.xml
+
+# Diretórios de configuração do NetBeans
+/nbproject/private/
+/nbproject/Makefile-*
+
+# Arquivos de cache e temporários
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Dependências externas (ajuste se necessário)
+*.jar
+
+# Arquivos de configuração do usuário
+*.iml
+.idea/
+.vscode/
