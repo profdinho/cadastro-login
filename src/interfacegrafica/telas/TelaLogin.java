@@ -107,11 +107,19 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha;
         login = txtLogin.getText();
         senha = new String(txtSenha.getPassword());
-                if (login.equals("admin") && senha.equals("123456")) {
-            JOptionPane.showMessageDialog(null, "Login com sucesso!");
-        }
+        if (!login.equals("") && !senha.equals("")){
+            ContatoDao contatoDao = new ContatoDao();
+            if (contatoDao.login(login, senha)) {
+                JOptionPane.showMessageDialog(null, "Login com sucesso!");
+                new TelaPrincipal().setVisible(true);
+                this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Login inválido!");
+            }
+        }       
         else {
-            JOptionPane.showMessageDialog(null, "Login inválido!");
+            JOptionPane.showMessageDialog(null, "Favor preencher os campos!");
         }
     }//GEN-LAST:event_btnLogarActionPerformed
 

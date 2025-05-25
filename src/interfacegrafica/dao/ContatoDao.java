@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -58,6 +60,30 @@ public class ContatoDao {
             }
         }
         catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public List listaContatos() {
+        List listaContatos = new ArrayList();
+        String sql = "SELECT * FROM Contato";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Contato contato = new Contato();
+                contato.setId(rs.getInt("id"));
+                contato.setNome(rs.getString("nome"));
+                contato.setTelefone(rs.getString("telefone"));
+                contato.setEmail(rs.getString("email"));
+                contato.setDataNascimento(rs.getDate("datanascimento"));
+                contato.setLogin(rs.getString("login"));
+                contato.setSenha(rs.getString("senha"));
+                listaContatos.add(contato);
+            }
+            return listaContatos;
+        }
+        catch(SQLException e) {
             throw new RuntimeException(e);
         }
     }
