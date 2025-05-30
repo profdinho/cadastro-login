@@ -5,6 +5,7 @@
 package interfacegrafica.telas;
 
 import interfacegrafica.dao.ContatoDao;
+import interfacegrafica.modelo.Contato;
 import javax.swing.JOptionPane;
 
 /**

@@ -64,7 +64,7 @@ public class ContatoDao {
         }
     }
     
-    public List listaContatos() {
+    public List<Contato> listaContatos() {
         List listaContatos = new ArrayList();
         String sql = "SELECT * FROM Contato";
         try {
@@ -84,6 +84,31 @@ public class ContatoDao {
             return listaContatos;
         }
         catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Contato getContatoById(int id) {
+        Contato contato = new Contato();
+        String sql = "SELECT * FROM Contato WHERE id = ?";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                contato.setId(rs.getInt("id"));
+                contato.setNome(rs.getString("nome"));
+                contato.setTelefone(rs.getString("telefone"));
+                contato.setEmail(rs.getString("email"));
+                contato.setDataNascimento(rs.getDate("dataNascimento"));
+                contato.setLogin(rs.getString("login"));
+                contato.setSenha(rs.getString("senha"));
+            }
+            rs.close();
+            ps.close();
+            return contato;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

@@ -4,6 +4,11 @@
  */
 package interfacegrafica.telas;
 
+import javax.swing.table.DefaultTableModel;
+
+import interfacegrafica.dao.ContatoDao;
+import interfacegrafica.modelo.Contato;
+
 /**
  *
  * @author dinho
@@ -33,6 +38,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tblContatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -60,6 +70,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblContatos);
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnApagar.setText("Apagar");
 
@@ -75,7 +90,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .addComponent(btnApagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -98,6 +113,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        ContatoDao contatoDao = new ContatoDao();
+        for (Contato contato: contatoDao.listaContatos()) {
+            DefaultTableModel model = (DefaultTableModel) tblContatos.getModel();
+            model.addRow(new Object[]{
+                contato.getId(),
+                contato.getNome(),
+                contato.getTelefone(),
+                contato.getEmail(),
+                contato.getDataNascimento(),
+                contato.getLogin()
+            });
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if (tblContatos.getSelectedRowCount() == 1) {
+            int row = tblContatos.getSelectedRow();
+            int id = Integer.parseInt(
+                tblContatos.getValueAt(row, 0).toString());
+            new TelaCadastro(id).setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments

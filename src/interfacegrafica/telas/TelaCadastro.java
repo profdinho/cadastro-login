@@ -23,6 +23,20 @@ public class TelaCadastro extends javax.swing.JFrame {
     public TelaCadastro() {
         initComponents();
     }
+    
+    public TelaCadastro(int id) {
+        initComponents();
+        ContatoDao contatoDao = new ContatoDao();
+        Contato contato = contatoDao.getContatoById(id);
+        txtNome.setText(contato.getNome());
+        txtTelefone.setText(contato.getTelefone());
+        txtEmail.setText(contato.getEmail());
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        txtDataNascimento.setText(formato.format(contato.getDataNascimento()));
+        txtLogin.setText(contato.getLogin());
+        txtSenha.setText(contato.getSenha());
+        txtConfirme.setText(contato.getSenha());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
