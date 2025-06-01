@@ -118,7 +118,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         ContatoDao contatoDao = new ContatoDao();
         for (Contato contato: contatoDao.listaContatos()) {
-            DefaultTableModel model = (DefaultTableModel) tblContatos.getModel();
+            DefaultTableModel model =
+                    (DefaultTableModel) tblContatos.getModel();
             model.addRow(new Object[]{
                 contato.getId(),
                 contato.getNome(),

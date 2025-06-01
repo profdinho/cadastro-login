@@ -65,7 +65,7 @@ public class ContatoDao {
     }
     
     public List<Contato> listaContatos() {
-        List listaContatos = new ArrayList();
+        List<Contato> listaContatos = new ArrayList();
         String sql = "SELECT * FROM Contato";
         try {
             PreparedStatement ps = conexao.prepareStatement(sql);
