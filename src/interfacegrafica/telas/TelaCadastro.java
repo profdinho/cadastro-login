@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author dinho
  */
 public class TelaCadastro extends javax.swing.JFrame {
-
+    private int id = 0;
     /**
      * Creates new form TelaCadastro
      */
@@ -26,6 +26,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     
     public TelaCadastro(int id) {
         initComponents();
+        this.id = id;
         ContatoDao contatoDao = new ContatoDao();
         Contato contato = contatoDao.getContatoById(id);
         txtNome.setText(contato.getNome());
@@ -251,17 +252,25 @@ public class TelaCadastro extends javax.swing.JFrame {
             contato.setLogin(login);
             contato.setSenha(senha);
             ContatoDao contatoDao = new ContatoDao();
-            contatoDao.adicionaContato(contato);
+            if (this.id == 0) {
+                contatoDao.adicionaContato(contato);
+            }
+            else {
+                contato.setId(this.id);
+                contatoDao.atualizaContato(contato);
+            }
             JOptionPane.showMessageDialog(null, "Gravado com sucesso!");
         }
-        
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
+        telaPrincipal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        TelaLogin telaLogin = new TelaLogin();
-        telaLogin.setVisible(true);
-        this.dispose();
+        TelaPrincipal telaPrincipal = new TelaPrincipal();
+        telaPrincipal.setVisible(true);
+        this.dispose();        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**

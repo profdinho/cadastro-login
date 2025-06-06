@@ -113,4 +113,38 @@ public class ContatoDao {
         }
     }
     
+    public void atualizaContato(Contato contato) {
+        String sql = "UPDATE Contato SET nome=?, telefone=?,"
+                + "email=?, dataNascimento=?, login=?,"
+                + "senha=? WHERE id=?";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setString(1, contato.getNome());
+            ps.setString(2, contato.getTelefone());
+            ps.setString(3, contato.getEmail());
+            ps.setDate(4, contato.getDataNascimento());
+            ps.setString(5, contato.getLogin());
+            ps.setString(6, contato.getSenha());
+            ps.setInt(7, contato.getId());
+            ps.execute();
+            ps.close();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void removeContato(Integer id) {
+        String sql = "DELETE FROM Contato WHERE id=?";
+        try {
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            ps.close();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 }
